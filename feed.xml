@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-02-27T23:44:08+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Git Guide or Cheatsheet or Whatever</title><link href="/softengproject/2022/02/27/git-guide-or-cheatsheet-or-whatever.html" rel="alternate" type="text/html" title="Git Guide or Cheatsheet or Whatever" /><published>2022-02-27T22:45:00+07:00</published><updated>2022-02-27T22:45:00+07:00</updated><id>/softengproject/2022/02/27/git-guide-or-cheatsheet-or-whatever</id><content type="html" xml:base="/softengproject/2022/02/27/git-guide-or-cheatsheet-or-whatever.html"><![CDATA[<p>Git is a common version control used on Software Engineering projects.
+<!--more-->
+You could see that every projects maintained online used git in majority.
+Learning git is a necessity if you would like to work in a codebase maintained by a group or company.
+This post currates a list of common knowledge and guide I found and followed.</p>
+
+<h3 id="overview-of-git">Overview of Git</h3>
+
+<p>A codebase is stored in a <strong>repository</strong> either local or on a remote server.
+In the repository, there is a <strong>“main” branch</strong> that represents the current progress or release.
+The repositories often have many branches of others.
+You save your progress by creating a <strong>commit</strong> consists of your changes into a branch.
+You could <strong>branch</strong> from other branch and <strong>merge</strong> a branch into other branch.</p>
+
+<p>With git, you could work on a task alongside with others’ work in the same codebase.
+This is important as you need to store your own work and merge with the rest of others’ work in a good way.</p>
+
+<h3 id="git-remote-server">Git Remote Server</h3>
+
+<p>There are sites that host remote repositories such as <a href="https://github.com">github</a>, <a href="https://gitlab.com">gitlab</a>, etc.
+These sites have utility features such as continous integration/deployment (CI/CD) and merge request that can be reviewed by others.</p>
+
+<h3 id="commands-of-git">Commands of Git</h3>
+
+<p>This is a list of git commands I have used.</p>
+
+<h4 id="initializing-a-repository">Initializing a Repository</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git init</code></pre></figure>
+
+<p>This command is used to initialize a local repository. The <code class="language-plaintext highlighter-rouge">.git</code> folder is initialized by this command.</p>
+
+<h4 id="cloning-a-remote-repository">Cloning a Remote Repository</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone &lt;remote_url&gt; &lt;target_dir&gt;</code></pre></figure>
+
+<p>This clones a remote repository into a folder. An origin remote is set to able to pull and push to the remote repository.</p>
+
+<h4 id="setting-remote-repository">Setting Remote Repository</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git remote add &lt;remote_name&gt; &lt;remote_url&gt;
+git remote set-url &lt;remote_name&gt; &lt;remote_url&gt;
+git remote remove &lt;remote_name&gt;</code></pre></figure>
+
+<p>This command is used to manage remote repositories it relates to.</p>
+
+<h4 id="stage-changes">Stage Changes</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git add &lt;files&gt;</code></pre></figure>
+
+<p>This command stages files to be commit.</p>
+
+<h4 id="commit-changes">Commit Changes</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git commit
+git commit <span class="nt">-m</span> &lt;commit_message&gt;
+git commit <span class="nt">-a</span></code></pre></figure>
+
+<p>This commits changes staged using <code class="language-plaintext highlighter-rouge">git add</code>. You also could modify previous commit using <code class="language-plaintext highlighter-rouge">-a</code>.</p>
+
+<h4 id="pull-changes-from-remote-repository">Pull Changes from Remote Repository</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git pull
+git pull &lt;remote&gt; &lt;branch&gt;</code></pre></figure>
+
+<p>This command pull commits from remote repository.
+If executed on different branch, it will create a merge commit to apply pulled commits.</p>
+
+<h4 id="push-changes-to-remote-repository">Push Changes to Remote Repository</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git push &lt;remote&gt; &lt;branch&gt;</code></pre></figure>
+
+<p>This command pushes commits created locally to the remote repository. This creates new branch if it doesn’t exist.
+You could use <code class="language-plaintext highlighter-rouge">--force</code> to rewrite commit history with your local commit history.</p>
+
+<h4 id="status">Status</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git status</code></pre></figure>
+
+<p>This command outputs an overview of your local repository. This includes current branch and uncommited changes if any.</p>
+
+<h4 id="branch">Branch</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git branch &lt;new_branch_name&gt;</code></pre></figure>
+
+<p>This command creates a new branch for current branch. Keep in mind that you need to select the new branch using checkout.</p>
+
+<h4 id="checkout">Checkout</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout &lt;branch_name&gt;
+git checkout <span class="nt">-b</span> &lt;new_branch_name&gt;</code></pre></figure>
+
+<p>This command changes the current branch to specified branch.
+You could use <code class="language-plaintext highlighter-rouge">-b</code> to create new branch and checkout to the new branch.</p>
+
+<h4 id="log">Log</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git log
+git reflog</code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">git log</code> is used to see the history of commits on current branch. 
+You could see the code on that commit version using <code class="language-plaintext highlighter-rouge">git checkout &lt;commit_sha&gt;</code>.
+<code class="language-plaintext highlighter-rouge">git reflog</code> is used to see the history of git command you used.</p>
+
+<h4 id="stash">Stash</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git stash</code></pre></figure>
+
+<p>This command stashes your uncomitted changes. Useful when you need to pull or change branch.
+To unstash, use <code class="language-plaintext highlighter-rouge">git stash apply</code>.</p>
+
+<h4 id="rebase">Rebase</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git rebase &lt;branch_source&gt;</code></pre></figure>
+
+<p>This adds commits added from source branch before repeating your commits on current branch.</p>
+
+<h3 id="tips-and-tricks">Tips and Tricks</h3>
+
+<p>These are tips and tricks that could be used for convenience.</p>
+
+<h4 id="updating-branch-without-merge-commit">Updating Branch without Merge Commit</h4>
+
+<p>Before merging your work into the main remote branch, you often need to update your branch to the latest commit done in main branch.
+You could just <code class="language-plaintext highlighter-rouge">git pull origin master</code> to update your branch, but this will create a merge commit which is often 
+cumbersome. You could instead utilize <code class="language-plaintext highlighter-rouge">git rebase</code> for this matter. 
+This is command I run when I need to update my branch before merge.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout master
+git pull origin master
+git checkout &lt;branch_name&gt;
+git rebase master
+git push <span class="nt">--force</span> origin &lt;branch_name&gt;</code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">--force</code> is required here because the commit you create on the branch is repeated and hence creating new SHA for the commit.
+This will cause history between local and remote become different and need to be rewritten.</p>
+
+<h4 id="reverting-recent-unpushed-commit">Reverting Recent Unpushed Commit</h4>
+
+<p>When you accidentally commit your changes, you have two choices: Reset to remote state which wastes your current work, or use this command</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git reset HEAD~1 <span class="nt">--soft</span></code></pre></figure>
+
+<p>This will undo the local commit, assuming your last action is committing.</p>
+
+<h4 id="use-gitkeep-for-empty-directories">Use <code class="language-plaintext highlighter-rouge">.gitkeep</code> for Empty Directories</h4>
+
+<p>You couldn’t commit empty directories. But you could place <code class="language-plaintext highlighter-rouge">.gitkeep</code> to keep the empty directory.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Git is a nice version control that has wide features and commands that you might not use.
+But once you learn basic of committing, branching, and merging, you will get used to these commands and tricks.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[Git is a common version control used on Software Engineering projects.]]></summary></entry></feed>
