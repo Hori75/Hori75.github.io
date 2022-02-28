@@ -1,4 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-02-28T13:10:41+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Test Driven Development (ignored) Main Thing</title><link href="/softengproject/2022/02/28/test-driven-development-ignored-main-thing.html" rel="alternate" type="text/html" title="Test Driven Development (ignored) Main Thing" /><published>2022-02-28T13:00:00+07:00</published><updated>2022-02-28T13:00:00+07:00</updated><id>/softengproject/2022/02/28/test-driven-development-ignored-main-thing</id><content type="html" xml:base="/softengproject/2022/02/28/test-driven-development-ignored-main-thing.html"><![CDATA[<p>(SPOILER ALERT) It’s not 100% coverage.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-02-28T18:49:35+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">User Persona in User Centered Design</title><link href="/softengproject/2022/02/28/user-persona-in-user-centered-design.html" rel="alternate" type="text/html" title="User Persona in User Centered Design" /><published>2022-02-28T18:45:00+07:00</published><updated>2022-02-28T18:45:00+07:00</updated><id>/softengproject/2022/02/28/user-persona-in-user-centered-design</id><content type="html" xml:base="/softengproject/2022/02/28/user-persona-in-user-centered-design.html"><![CDATA[<p>User Persona is an important tool for designing and working on User Experience projects.
+<!--more-->
+In User Centered Design, we often stumble upon a user persona.
+User Persona is used as an consideration for a designer to create effective User Interface for specific user type.
+There are many sites that give user persona templates to be used either free or proprietary.
+But you should know what does a User Persona have in common.</p>
+
+<h3 id="what-is-user-persona">What is User Persona</h3>
+
+<p>User Persona is a preview of a specific stereotype of a user. 
+These user stereotypes should be large enough to represent a majority of the users.
+But, this shouldn’t restrict designers to have just one user persona, you create many user personas if needed.
+The other consideration in deciding which user stereotype to pick is what role the users have on the product.
+They might be small in quantity but have critical role in the product.</p>
+
+<h3 id="important-role-of-user-personas">Important Role of User Personas</h3>
+
+<p>As stated in the beginning, User Persona is used as an consideration for the decisions in designing User Experience.
+It also helped the priortization of features throughout the development process.
+User Personas also could help other stakeholders to create better decision based on the user stereotypes. 
+(hence, the design process is called User Centered Design)</p>
+
+<h3 id="what-does-a-user-persona-contains">What does a User Persona Contains</h3>
+
+<p>User Persona commonly use fictional name and have following info:</p>
+<ul>
+  <li>Job titles and major responsibilities</li>
+  <li>Demographics such as age, education, ethnicity, and family status</li>
+  <li>The goals and tasks they are trying to complete using the site</li>
+  <li>Their physical, social, and technological environment</li>
+  <li>A quote that sums up what matters most to the persona as it relates to your site</li>
+  <li>Casual pictures representing that user group</li>
+</ul>
+
+<p>Sometimes, you might have little time to design and these info couldn’t be fulfilled.
+The minimum requirement for user persona is that you could explain the user stereotype’s goal, tasks, and pain points related to the product.</p>
+
+<p>The good example is our work on Software Engineering Project subject. 
+Our team is working project on a software aimed to report and save records of students that violate academic rules.
+We only have 1 week to create user personas for both Student and Lecturer.
+We brainstorm on information we have about respective stereotypes.
+Here’s the user persona about lecturer stereotypes, you could see we only wrote the bio, goals, and frustrations. (despite in different language)</p>
+
+<p><img src="/images/UserPersonainUserCenteredDesign-image.png" alt="Example of User Persona" width="800" /></p>
+
+<p>In my opinion, this is already a user persona and we could take use information to decide on design decisions.</p>
+
+<p>In the best practice, we gather these informations by conducting a user research, summarize or condense the research, brainstorming, refining, and making it realistic.</p>
+
+<h3 id="what-to-ask-during-user-research">What to Ask during User Research</h3>
+
+<p>We should generally ask about user’s description, motivations to use your product, and their aim by using your product.
+If there is a popular product to refer, use it to gain more information related to their preferences and pain points.
+You should interview more users in order to gain more general information related to a stereotype.
+The users you asked must be within the scope of users your product aimed for.</p>
+
+<h3 id="user-persona-layout-and-formatting">User Persona Layout and Formatting</h3>
+
+<p>Aside from the template our team used, there are many templates available online.
+You could use any templates you like, I’m not fond of recommending a certain template.
+But with this knowledge, you might could create your own template.
+It doesn’t need to be fancy but it should be readable and could represent the user stereotype well.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>User Persona is an effective tool to create User Interface that conform the specific user needs.
+Without it, we wouldn’t be able to focus on the stereotypes of users your product aimed for.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="https://www.usability.gov/how-to-and-tools/methods/personas.html">Personas from Usability.gov</a></p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[User Persona is an important tool for designing and working on User Experience projects.]]></summary></entry><entry><title type="html">Test Driven Development (ignored) Main Thing</title><link href="/softengproject/2022/02/28/test-driven-development-ignored-main-thing.html" rel="alternate" type="text/html" title="Test Driven Development (ignored) Main Thing" /><published>2022-02-28T13:00:00+07:00</published><updated>2022-02-28T13:00:00+07:00</updated><id>/softengproject/2022/02/28/test-driven-development-ignored-main-thing</id><content type="html" xml:base="/softengproject/2022/02/28/test-driven-development-ignored-main-thing.html"><![CDATA[<p>(SPOILER ALERT) It’s not 100% coverage.
 <!--more--></p>
 
 <p>While learning programming and software engineering, I found this principle called “Test Driven Development”.
