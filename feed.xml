@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-02-28T18:49:35+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">User Persona in User Centered Design</title><link href="/softengproject/2022/02/28/user-persona-in-user-centered-design.html" rel="alternate" type="text/html" title="User Persona in User Centered Design" /><published>2022-02-28T18:45:00+07:00</published><updated>2022-02-28T18:45:00+07:00</updated><id>/softengproject/2022/02/28/user-persona-in-user-centered-design</id><content type="html" xml:base="/softengproject/2022/02/28/user-persona-in-user-centered-design.html"><![CDATA[<p>User Persona is an important tool for designing and working on User Experience projects.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-02-28T20:52:24+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Agile Manifesto and its implications on Scrum</title><link href="/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum.html" rel="alternate" type="text/html" title="Agile Manifesto and its implications on Scrum" /><published>2022-02-28T20:50:00+07:00</published><updated>2022-02-28T20:50:00+07:00</updated><id>/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum</id><content type="html" xml:base="/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum.html"><![CDATA[<p>Agile is the most frequent word I see when learning about modern software engineering.
+<!--more-->
+This word refers to Agile development that specializes at responding to changes in order to satisfy needs in rapid pace.
+But, in some articles/guides, Agile Development is only a set procedures created to rapidly get features done.
+We should (or must) learn the principles of Agile from it’s reference, <a href="https://agilemanifesto.org/">Agile Manifesto</a>.</p>
+
+<h3 id="what-is-agile-manifesto">What is Agile Manifesto</h3>
+
+<p>Before the manifesto, there are various agile principles (such as extreme programming, pair programming, etc) created from the 1970s.
+In early 2001, a group of 17 developers created the manifesto in 2 meetings on Oregon and Snowbird, Utah.
+The explosion of personal computers creates huge demands and significant changes.
+The lag of time in developing software to fulfill needs creates frustation with the tradtional methodology of the 1990s. 
+The manifesto is created to encourage developers to speed up processes and work on practices that focuses more directly to the users.</p>
+
+<p>The values of Agile Manifesto:</p>
+<ul>
+  <li>Individuals and interactions over processes and tools</li>
+  <li>Working software over comprehensive documentation</li>
+  <li>Customer collaboration over contract negotiation</li>
+  <li>Responding to change over following a plan</li>
+</ul>
+
+<p>The <a href="https://agilemanifesto.org/principles.html">Twelve principles of Agile Manifesto</a> largely taught about developer should be 
+able to accept changes and create deliverables on quick pace. This means that developer should work closely with the stakeholders
+in order to quickly deliver a working feature for efficency and competitive advantage. The principles also needs a regular 
+reflection on how to become more effective and adjusts its behaviour to conform with the reflection.</p>
+
+<h3 id="how-scrum-is-created-to-be-agile">How Scrum is Created to be Agile</h3>
+
+<p>The scrum process is drawn in different and sometimes large graphs.
+But they share the common ideas on mechanism and meetings.
+Here is the common example of it.</p>
+
+<p><img src="/images/scrumorg-scrum-framework-3000.png" alt="Scrum Process" width="800" /></p>
+
+<h4 id="product-backlog">Product Backlog</h4>
+
+<p>Product Owner is responsible to create product backlogs in scrum process. 
+This product backlogs could be added later after a sprint is done.</p>
+
+<h4 id="sprint-planning">Sprint Planning</h4>
+
+<p>In Sprint Planning, the team gather to sort the backlogs of the effort required and decide what to work on in the beginning.
+This generates a sprint backlog, the tasks targetted to be done at the end of the sprint.</p>
+
+<h4 id="sprint">Sprint</h4>
+
+<p>On the Sprint, a regular meeting is set to address teams completion, next tasks, and its impedance.
+From the regular meeting, product owner could adjust the sprint backlog and assign the backlog to the member who has finished previous backlog.
+Aside from that, the team needs to be working on the implementation so that the aim of the sprint is completed.</p>
+
+<h4 id="review-and-retrospective">Review and Retrospective</h4>
+
+<p>Once a sprint is finish, either the aims are fulfilled or not, the team gather for a review.
+In the review, the team needs to evaluate and plan an improvement on the next sprint.
+The sprint backlog that hasn’t been finished will be carried on next sprint.</p>
+
+<h4 id="repeat">Repeat</h4>
+
+<p>The work is then repeated indefinitely. The team grows and adapts to the scrum as member joins or leaves over time.</p>
+
+<h3 id="alternative-of-scrum-scrumban">Alternative of Scrum (Scrumban)</h3>
+
+<p>Despite the agility of scrum, there are some objections to scrum as an agile development framework:</p>
+
+<ul>
+  <li>Strict rules of meetings and sprint</li>
+  <li>Meetings that could take longer time</li>
+  <li>Fixed length of sprint</li>
+  <li>etc</li>
+</ul>
+
+<p>There is a hybrid Scrum that could address those issues called <a href="https://www.agilealliance.org/scrumban/">Scrumban</a>.
+This framework utilizes a board called <em>kanban</em> to organize tasks/backlogs to be work and done.</p>
+
+<p><img src="/images/scrumban-kanban.jpg" alt="Scrumban's kanban" /></p>
+
+<p>The purpose of this <em>kanban</em> is to provide the best next thing to work on by the team.
+The daily meeting is kept and could be done asynchronously.
+Instead of planning and retrospective, scrumban only needs a meeting to address the tasks on the <em>kanban</em>.
+It’s easier and more adaptable for new joiners to work on the team.</p>
+
+<p>The decision whether the team should use Scrumban instead is up to the team preferences.
+These are frameworks to apply and adapt with agile principles in mind.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Scrum framework should be executed with agile principles in mind.
+The agility of the team depends on how quick the development and how open they are to quick changes.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+  <li><a href="https://agilemanifesto.org/">The Agile Manifesto</a></li>
+  <li><a href="https://www.scrum.org/resources/what-is-scrum">What is Scrum</a></li>
+  <li><a href="https://www.agilealliance.org/scrumban/">What is Scrumban</a></li>
+</ul>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[Agile is the most frequent word I see when learning about modern software engineering.]]></summary></entry><entry><title type="html">User Persona in User Centered Design</title><link href="/softengproject/2022/02/28/user-persona-in-user-centered-design.html" rel="alternate" type="text/html" title="User Persona in User Centered Design" /><published>2022-02-28T18:45:00+07:00</published><updated>2022-02-28T18:45:00+07:00</updated><id>/softengproject/2022/02/28/user-persona-in-user-centered-design</id><content type="html" xml:base="/softengproject/2022/02/28/user-persona-in-user-centered-design.html"><![CDATA[<p>User Persona is an important tool for designing and working on User Experience projects.
 <!--more-->
 In User Centered Design, we often stumble upon a user persona.
 User Persona is used as an consideration for a designer to create effective User Interface for specific user type.
