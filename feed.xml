@@ -1,4 +1,244 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-02-28T20:52:24+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Agile Manifesto and its implications on Scrum</title><link href="/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum.html" rel="alternate" type="text/html" title="Agile Manifesto and its implications on Scrum" /><published>2022-02-28T20:50:00+07:00</published><updated>2022-02-28T20:50:00+07:00</updated><id>/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum</id><content type="html" xml:base="/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum.html"><![CDATA[<p>Agile is the most frequent word I see when learning about modern software engineering.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-03-21T00:08:43+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Refactoring a React Project</title><link href="/softengproject/2022/03/20/refactoring-react.html" rel="alternate" type="text/html" title="Refactoring a React Project" /><published>2022-03-20T22:00:00+07:00</published><updated>2022-03-20T22:00:00+07:00</updated><id>/softengproject/2022/03/20/refactoring-react</id><content type="html" xml:base="/softengproject/2022/03/20/refactoring-react.html"><![CDATA[<p>Initializing react project and working from there could be messy.
+<!--more-->
+Not only you have to setup from scratch, you have to build components itself.
+If not organized, the code could be turned into a mess due to javascript doesn’t care the project structure itself.</p>
+
+<p>In this post, I’d like to share my story on working a project and refactoring process.</p>
+
+<h3 id="starting-project">Starting Project</h3>
+
+<p>At the start of development, I initialized the project from <a href="https://create-react-app.dev/">Create React App</a>.
+Then the CI/CD and the server is setup, but this is out of scope on this post.</p>
+
+<p>Actually, there are few member from the team that just started working on react.
+They are learning on the fly and the project was just an initial from Create React App.
+So the results are a bit messy from my own view.</p>
+
+<p><img src="/images/refactor1.png" alt="Example of code" /></p>
+
+<p>Apart from that, we still use javascript and haven’t used linter.
+So I planned to refactor so they could work on it properly.</p>
+
+<h3 id="using-typescript">Using Typescript</h3>
+
+<p>The first step is to use Typescript. The reason behind that is to create more strictier.
+Why we need more strictier rule, because javascript is so flexible, it won’t check the type expected on function.
+Other than that, we would like to prevent more errors that could be avoided by strictier rule.</p>
+
+<h3 id="applying-eslint">Applying Eslint</h3>
+
+<p>Second step is to apply eslint. It’s easy to initialize the project.
+You could set it to check for warning, syntax errors, and enforce a codestyle.
+Also, there is a popular codestyle you could pick to follow. 
+The one annoying thing is that I have to disable preflight check so the conflicting dependencies doesn’t block any action.
+So far, there isn’t any problem regarding the conflicting packages.</p>
+
+<h3 id="seperate-the-component-concerns">Seperate the Component Concerns</h3>
+
+<p>I reorganize the components so other team members could work on the code more orderly.
+This is done by seperating the client (to get backend data), models (to set types of data), and Layouts 
+(which contains only MainLayout for now).</p>
+
+<p><img src="/images/refactor2.png" alt="Example of structure" /></p>
+
+<p>Apart from that, I also seperate the routing from the <code class="language-plaintext highlighter-rouge">App.tsx</code> so the we won’t need to make changes on the file.</p>
+
+<p>Heres what is like, more or less</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import {
+  ...
+} from './components';
+
+const Router = () =&gt; {
+  return (
+    &lt;Routes&gt;
+      &lt;!-- insert route here --&gt;
+    &lt;/Routes&gt;
+  );
+};
+export default Router;
+</code></pre></div></div>
+
+<p>The next step to be (hopefully) done on the project is to seperate other smaller components from a page so we could reuse it.
+After that, the page component shall be moved to it’s own directory.</p>
+
+<h3 id="advice-came-too-late">Advice came too late</h3>
+
+<p>While I was complaining about react’s weird coverage report file, my friend actually recommended me to use nextjs instead of
+the vanila <code class="language-plaintext highlighter-rouge">create-react-app</code> to initialize the project. I haven’t done it because it’s the first time setting up a react project.
+One of the advantages I see are it’s routing system are completely based on <code class="language-plaintext highlighter-rouge">pages</code> directory, so we don’t really need to create our own.</p>
+
+<h3 id="lesson-learned">Lesson Learned</h3>
+
+<p>When initializing a project is simple enough. The structure must be set properly and hence the refactor was done so other team 
+members who new to react could work on it more easily.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[Initializing react project and working from there could be messy.]]></summary></entry><entry><title type="html">Clean Code</title><link href="/softengproject/2022/03/20/clean-code.html" rel="alternate" type="text/html" title="Clean Code" /><published>2022-03-20T21:00:00+07:00</published><updated>2022-03-20T21:00:00+07:00</updated><id>/softengproject/2022/03/20/clean-code</id><content type="html" xml:base="/softengproject/2022/03/20/clean-code.html"><![CDATA[<p>Is your code readable?
+<!--more-->
+On your first time learning to code or a new framework, you might not need to write the good code.
+Why? Because it’s for your learning only. When you start to work on a project with others,
+you might be told to follow a guideline or a convention. When working with others, your work
+must be reviewed by others or you must wrote your idea to communicate it with others.
+This is might be done in other way, the thing is, the code should be readable by others to make it maintainable.</p>
+
+<h3 id="what-is-clean-code">What is Clean Code?</h3>
+
+<p>Clean code is a readable, maintanable, and well-written code. It has its following characteristics:</p>
+
+<ul>
+  <li>Other developers could understand it quickly</li>
+  <li>Don’t have too many duplications</li>
+  <li>Contains minimal classes and method, and</li>
+  <li>Works as expected (obviously)</li>
+</ul>
+
+<p>This characteristics then implies the code is readable and could be fixed quickly in case there is a semantic bug.</p>
+
+<h3 id="why-its-needed">Why it’s needed?</h3>
+
+<p>As previously stated, when working with others, having a clean code makes life easier for the team.
+Imagine you work on a poorly written code, the code is not formatted properly, there are too many methods or classes.
+The easiest way is to ask someone who created the code. But, what if they already left the team for good.
+This means that you need to decipher the code purpose and take a while to understand, and what if you forget it again.
+That is why clean code was needed when working in teams, you also could do it on your own code and gain benefit from it.</p>
+
+<h3 id="when-to-refactorclean">When to refactor/clean?</h3>
+
+<p>There are several principles on when or what to refactor.</p>
+
+<h4 id="dont-repeat-yourself-dry">Don’t Repeat Yourself (DRY)</h4>
+
+<p>As it said, you shouldn’t create duplicate codes. 
+In order to avoid duplication, you should create abstraction of the repeated process.
+But sometimes, too much abstractions could make the code more unreadable.
+This is the downside of this principle and the following principle is created to ease this.</p>
+
+<h4 id="write-everything-twice-wet-rule-of-three">Write Everything Twice (WET)/ Rule of Three</h4>
+
+<p>This principle gives more flexibility in order to prevent over abstractions.
+You could write it twice but if you write the same thing the third time, you need to refactor.
+Same as before, you could create abstraction of the repeated process.</p>
+
+<h4 id="you-arent-gonna-need-it-yagni">You Aren’t Gonna Need It (YAGNI)</h4>
+
+<p>When you write the code, the code should have its purpose in a workflow.
+Otherwise, you actually aren’t gonna need it and you should remove it.
+By thinking this way, we could prevent unnecessary codes in the first place.</p>
+
+<h4 id="keep-it-simple-stupid-kiss">Keep It Simple Stupid (KISS)</h4>
+
+<p>A phrase from long time could be applied while writing the code.
+If the implementation is really complex, you should think again to see if there is other simpler way.
+Writing the simpler code means simpler workflow and could be checked easily for bugs.</p>
+
+<h4 id="etc">Etc</h4>
+
+<p>Also, there are several times you might need to refactor the code</p>
+
+<ul>
+  <li>refactor when adding new feature</li>
+  <li>refactor when fixing bugs</li>
+  <li>refactor in code review</li>
+</ul>
+
+<h3 id="how-to-refactorclean">How to refactor/clean?</h3>
+
+<p>While cleaning the code, there are checklists to check whenther you have refactor it properly or not.</p>
+
+<ul>
+  <li>Code should be cleaner (obviously)</li>
+  <li>No new functionality from the changes</li>
+  <li>Existing tests should pass</li>
+</ul>
+
+<p>The work that needs to be done depends on reason refactoring is needed.
+Might be to eliminate code duplication or to completely reimplement the flow.</p>
+
+<p>Aside from cleaning from semantic mess, you could [literally] tidy the code by following a certain codestyle.
+In that way, your codestyle is consistent and more readable.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>The principles of clean code are flexible and there aren’t clear and strict rules.
+but it should be implemented in order to have readable and maintainable code.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p>For more guides and techniques of refactoring, you could learn quickly from <a href="https://refactoring.guru/refactoring">Refactoring Guru</a></p>
+
+<p>If you want a well written guideline and principles, you could read <a href="https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code book by Robert C. Martin</a></p>
+
+<p>Thumbnail comic: <a href="https://xkcd.com/1513/">xkcd: Code Quality</a></p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[Is your code readable?]]></summary></entry><entry><title type="html">DevOps on Software Engineering Project</title><link href="/softengproject/2022/03/20/devops-in-software-engineering-project.html" rel="alternate" type="text/html" title="DevOps on Software Engineering Project" /><published>2022-03-20T15:42:00+07:00</published><updated>2022-03-20T15:42:00+07:00</updated><id>/softengproject/2022/03/20/devops-in-software-engineering-project</id><content type="html" xml:base="/softengproject/2022/03/20/devops-in-software-engineering-project.html"><![CDATA[<p>Quick pace development demands quick deployment and delivery of the products.
+<!--more-->
+Nowadays, changes in the application makes deployment needed to be done in automated and quick manner.
+This has to be done in order to fulfill the demand on time.
+Here’s my grasp on automating the deployment and integration process.</p>
+
+<h3 id="overview-of-devops">Overview of DevOps</h3>
+
+<p>Usually, DevOps represents a collaboration between the Development and Operation process in order to deploy code
+ into production environment. This collaboration dedicates on creating an automated and fast way to deploy the code.
+DevOps is important for enterprises that needs to deliver product faster to be competitive.
+This demands a collaboration between development, operations, and business teams so the development could be done 
+in timely manner.</p>
+
+<p>In practice, DevOps includes some common practices done and its examples.</p>
+
+<h4 id="collaborative-development">Collaborative Development</h4>
+
+<p><img src="/images/gitlab-page.png" alt="Gitlab Page" width="800" /></p>
+
+<p>In order to develop product quickly, we should enable other team member to work pararelly.
+This is usually done by using a remote host to store source code and version control system.</p>
+
+<p>The most common example here is using popular code hosting platform such as <a href="https://github.com">Github</a>, 
+<a href="https://bitbucket.org">BitBucket</a>, <a href="https://gitlab.com">Gitlab</a>, etc.
+You could host your own code hosting platform (for example, <a href="https://about.gitlab.com/install/">host Gitlab on your own server</a>)
+but it might costs too much in the early development. 
+The code hosting platform should be operational and reliable to maintain, 
+so you could have used available hosting platform instead.</p>
+
+<h4 id="continuous-integration-and-deployment">Continuous Integration and Deployment</h4>
+
+<p><img src="/images/pipeline.png" alt="Continuous Integration and Deployment" width="800" /></p>
+
+<p>This is where DevOps dedicated most. 
+During the integration process, the source code should be built and tested before deployed to production.
+Due to high volume of work done from the development, the process should be done in automated way.</p>
+
+<p>Usually, the automation is available on code hosting platform as a feature.
+Also, there are many services that provide automation platform, such as <a href="https://travis-ci.org">Travis CI</a>, 
+<a href="https://circleci.com">Circle CI</a>, etc.
+But, it might be limited due to be demanding in terms of computational cost and enermous amount of jobs need to be done pararelly.
+You could use either free in limited way or find the cheapest and most reliable.
+The other way is to host your own CI/CD runner like <a href="https://docs.gitlab.com/runner/">Gitlab Runner</a>
+provided for Gitlab servers or <a href="https://www.jenkins.io/">Jenkins</a>.</p>
+
+<p>As for deployment, there are many Platform as a Service (PaaS) services that provide platform to be manage by ourselves.
+The example of it are <a href="https://www.heroku.com/">Heroku</a>, <a href="https://www.digitalocean.com/">Digital Ocean</a>, 
+<a href="https://cloud.google.com">Google Cloud Platform</a>, etc. You could utilize any platform as you like.
+Take note that there are few things needed to setup in order to make a fully operational web application, 
+such as, setting up how the application runs or replaced by the newer build.</p>
+
+<h4 id="continuous-monitoring">Continuous Monitoring</h4>
+
+<p><img src="/images/grafana.png" alt="Monitoring" width="800" /></p>
+
+<p>After deployment to production, we should check if the server works properly and could fulfill the demand.
+We also need to check what happened on the service when something wrong happened.
+This is what app logs are used for, but you need to be able to read it easily,
+especially when you already have many servers operational.
+The problem also apply on checking performances on the servers.</p>
+
+<p>The tools you can use are <a href="https://grafana.com/">Grafana</a>, <a href="https://prometheus.io/">Prometheus</a>, etc.
+The monitoring tools should be able to provide access to performance graph, app logs, and alerts.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>DevOps has become the important part on software engineering projects. 
+It happens due to the increase of competitive companies that needs to deliver product in time.
+This also make software development and deployment more easier and faster.
+But we should remember, the team needs to be adaptive in order to be able to adopt DevOps practices in beneficial way.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[Quick pace development demands quick deployment and delivery of the products.]]></summary></entry><entry><title type="html">Agile Manifesto and its implications on Scrum</title><link href="/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum.html" rel="alternate" type="text/html" title="Agile Manifesto and its implications on Scrum" /><published>2022-02-28T20:50:00+07:00</published><updated>2022-02-28T20:50:00+07:00</updated><id>/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum</id><content type="html" xml:base="/softengproject/2022/02/28/agile-manifesto-and-its-implications-to-scrum.html"><![CDATA[<p>Agile is the most frequent word I see when learning about modern software engineering.
 <!--more-->
 This word refers to Agile development that specializes at responding to changes in order to satisfy needs in rapid pace.
 But, in some articles/guides, Agile Development is only a set procedures created to rapidly get features done.
