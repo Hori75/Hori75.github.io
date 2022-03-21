@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-03-21T00:08:43+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Refactoring a React Project</title><link href="/softengproject/2022/03/20/refactoring-react.html" rel="alternate" type="text/html" title="Refactoring a React Project" /><published>2022-03-20T22:00:00+07:00</published><updated>2022-03-20T22:00:00+07:00</updated><id>/softengproject/2022/03/20/refactoring-react</id><content type="html" xml:base="/softengproject/2022/03/20/refactoring-react.html"><![CDATA[<p>Initializing react project and working from there could be messy.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-03-21T11:21:51+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Refactoring a React Project</title><link href="/softengproject/2022/03/20/refactoring-react.html" rel="alternate" type="text/html" title="Refactoring a React Project" /><published>2022-03-20T22:00:00+07:00</published><updated>2022-03-20T22:00:00+07:00</updated><id>/softengproject/2022/03/20/refactoring-react</id><content type="html" xml:base="/softengproject/2022/03/20/refactoring-react.html"><![CDATA[<p>Initializing react project and working from there could be messy.
 <!--more-->
 Not only you have to setup from scratch, you have to build components itself.
 If not organized, the code could be turned into a mess due to javascript doesn’t care the project structure itself.</p>
@@ -260,6 +260,22 @@ The manifesto is created to encourage developers to speed up processes and work 
   <li>Responding to change over following a plan</li>
 </ul>
 
+<p><a href="https://agilemanifesto.org/principles.html">Twelve principles of Agile Manifesto</a> in short sentence:</p>
+<ul>
+  <li>Early and continuous delivery</li>
+  <li>Change for competitive advantage</li>
+  <li>Deliver working software frequently</li>
+  <li>Business and development team working together</li>
+  <li>Support team members</li>
+  <li>Face-to-face conversation to convey information quickly</li>
+  <li>Working software as measure of progress</li>
+  <li>Maintain constant pace for sustainable development</li>
+  <li>Technical exellence and good design</li>
+  <li>Simplicity</li>
+  <li>Self-organizing teams</li>
+  <li>Reflection at regular intervals</li>
+</ul>
+
 <p>The <a href="https://agilemanifesto.org/principles.html">Twelve principles of Agile Manifesto</a> largely taught about developer should be 
 able to accept changes and create deliverables on quick pace. This means that developer should work closely with the stakeholders
 in order to quickly deliver a working feature for efficency and competitive advantage. The principles also needs a regular 
@@ -341,6 +357,22 @@ User Persona is used as an consideration for a designer to create effective User
 There are many sites that give user persona templates to be used either free or proprietary.
 But you should know what does a User Persona have in common.</p>
 
+<h3 id="user-centered-design-and-its-importance">User Centered Design and its Importance</h3>
+
+<p>User Centered Design is a design process that focused on users.
+The process is done by understanding the context from user prespective and specify the problem and pain points in order
+to improve user experience on a product.
+That way, we could see many things often overlooked aspects regarding to usability (how it’s easy to be useful) and 
+accessibilty (how it’s easy to use the application).</p>
+
+<p>There are 4 ways UCD pays off according to David Benyon:</p>
+<ul>
+  <li>Product usage increased and reduced customer service cost</li>
+  <li>Reducing human error on using the product</li>
+  <li>The user felt more respected when using the product</li>
+  <li>Recognize diversity of its users for sustainable businesses</li>
+</ul>
+
 <h3 id="what-is-user-persona">What is User Persona</h3>
 
 <p>User Persona is a preview of a specific stereotype of a user. 
@@ -403,6 +435,8 @@ It doesn’t need to be fancy but it should be readable and could represent the 
 Without it, we wouldn’t be able to focus on the stereotypes of users your product aimed for.</p>
 
 <h3 id="reference">Reference</h3>
+
+<p><a href="https://www.interaction-design.org/literature/topics/user-centered-design">What is User Centered Design?</a></p>
 
 <p><a href="https://www.usability.gov/how-to-and-tools/methods/personas.html">Personas from Usability.gov</a></p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[User Persona is an important tool for designing and working on User Experience projects.]]></summary></entry><entry><title type="html">Test Driven Development (ignored) Main Thing</title><link href="/softengproject/2022/02/28/test-driven-development-ignored-main-thing.html" rel="alternate" type="text/html" title="Test Driven Development (ignored) Main Thing" /><published>2022-02-28T13:00:00+07:00</published><updated>2022-02-28T13:00:00+07:00</updated><id>/softengproject/2022/02/28/test-driven-development-ignored-main-thing</id><content type="html" xml:base="/softengproject/2022/02/28/test-driven-development-ignored-main-thing.html"><![CDATA[<p>(SPOILER ALERT) It’s not 100% coverage.
 <!--more--></p>
@@ -470,6 +504,28 @@ Coverage reports are created to detect any code flow that we left untested.
 We need to remember that unit tests are created to give confidence that the code is working properly as intended if the test passed.
 It’s main purpose is to make sure others’ changes don’t break the flow of the program.
 The (ignored) main thing is Test Driven Development should be done to test <strong>the code behaviours, not all the implementations</strong>.</p>
+
+<h3 id="what-could-be-done">What could be done?</h3>
+
+<p>Here’s what could be done better for test driven development</p>
+
+<h4 id="set-coverage-target-to-maximum-80">Set Coverage Target to maximum 80%</h4>
+
+<p>As previously stated, we don’t need to test all the implementations. We just need to test the behaviour of the code.
+So, we actually don’t need to reach 100% coverage. The target usually suggested are 80%.
+This percentage should be able to cover all the code behaviour you created.</p>
+
+<h4 id="ignore-generated-code">Ignore generated code</h4>
+
+<p>Sometimes, there were code generated by annotations or other framework features.
+This shouldn’t be tested entirely because it have been tested and unrelated to the code behaviour.
+For example, lombok annotations in java to create getter and setter shouldn’t be tested (well, because it’s purpose were clear).
+So, we could disable coverage check on that part.</p>
+
+<h4 id="refactor-the-code">Refactor the code</h4>
+
+<p>If your coverage is still low despite these actions. You might need to refactor and implement simpler flow.
+The simpler flow will give less code required to be covered.</p>
 
 <h3 id="conclusion">Conclusion</h3>
 
