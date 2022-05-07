@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Simple Development and Deployment Using Docker - Hori75&#39;s Blog
+    
+  </title>
+
+  <meta name="description" content="As more and more services created, we need to manage the development and deployment in scalable way.">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/softengproject/2022/05/07/simple-development-and-deployment-using-docker-compose.html">
+  <link rel="alternate" type="application/rss+xml" title="Hori75&#39;s Blog" href="/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Hori75&#39;s Blog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/images/docker-compose.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Simple Development and Deployment Using Docker</h1>
+            
+            <span class="meta">Posted by
+              <a href="#">hori75</a>
+              on May 07, 2022 &middot; <span class="reading-time" title="Estimated read time">
+  
+   5 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>As more and more services created, we need to manage the development and deployment in scalable way.
+<!--more-->
+But, we also need to make it portable. 
+This becomes a challenge that needs to be solve in a simple way (at least in current project)
+Docker is an easy way to store builds and deploy.</p>
+
+<h3 id="docker-usage">Docker Usage</h3>
+
+<p>Docker automates application build and setup and stores the result in form of <strong>image</strong>. 
+Docker will run commands based on the project <code class="language-plaintext highlighter-rouge">Dockerfile</code>.
+This <strong>image</strong> later could be run as container or store it in image registry to be pulled and run.</p>
+
+<p><strong>Container</strong> is a standard, lightweight, and secure software that contains anything it needs to operate.
+Due to that characteristic, we could use Docker to run our server basically anywhere as long docker could be used and the image is obtained.
+<strong>Container</strong> is isolated from the main system so we could have many of them running on an instance without interfering each other.</p>
+
+<h4 id="example-build-image-and-deploy-to-a-server">Example: build image and deploy to a server</h4>
+
+<p>In this example, we use java springboot so we could use grade to build image for us.
+So we build the image via <code class="language-plaintext highlighter-rouge">./gradlew bootBuildImage</code>, tag the image and push it into an image registry as latest.
+For example check this snippet about the job below (from <code class="language-plaintext highlighter-rouge">.gitlab-ci.yml</code>), you could run it manually to try
+(after filling the env variables of course).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PublishStaging:
+    stage: Publish
+    image: docker:latest
+    before_script:
+        - docker login -u _json_key --password-stdin https://$IMAGE_REGISTRY &lt; $ARTIFACT_REG_CRED
+        - apk add openjdk17
+    script:
+        - ./gradlew bootBuildImage
+        - docker tag sikepa:0.0.1-SNAPSHOT $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+        - docker push $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+    only:
+        variables:
+            - ($CI_COMMIT_BRANCH == "develop")
+</code></pre></div></div>
+
+<p>For other languages, it’s still easy. You just need to write setup and build command on <code class="language-plaintext highlighter-rouge">Dockerfile</code> and run it using <code class="language-plaintext highlighter-rouge">docker build</code>.</p>
+
+<p>After succesfully build and push the image, the application on server needs to be updated.
+So the application is stopped, updated, and ran again to apply the changes.
+Here’s the example of it.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DeployStaging:
+    stage: Deploy
+    image: docker:latest
+    before_script:
+        - chmod 400 $SSH_PRIVATE_KEY
+        - which ssh-agent || ( apk --update add openssh-client )
+        - eval $(ssh-agent -s)
+        - ssh-add $SSH_PRIVATE_KEY
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - cat $SSH_KNOWN_HOSTS &gt;&gt; ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - docker login -u _json_key --password-stdin https://$IMAGE_REGISTRY &lt; $ARTIFACT_REG_CRED
+    script:
+        - cat ~/.ssh/known_hosts
+        - docker stop sikepa-backend || true
+        - docker rm sikepa-backend || true
+        - docker pull $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+        - docker run -p 127.0.0.1:8080:80 --env-file $PROD_ENV --name sikepa-backend -d $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+        - docker logs sikepa-backend
+    variables:
+        DOCKER_HOST: ssh://gitlab@$PROD_HOST
+    only:
+        variables:
+            - ($CI_COMMIT_BRANCH == "develop")
+</code></pre></div></div>
+
+<p>Note: this job runs ssh to the server manually. There might be a more optimal way to run on automation.</p>
+
+<p>This also could be scaled up so we could manage and run few services on just one instance without any security or interference issue.
+(except if you misconfigure them, obviously)</p>
+
+<h3 id="docker-compose-for-development">Docker Compose for Development</h3>
+
+<p>In local development, we might need to setup database or other softwares into our system. 
+This could cause some interference if we have more than one project in our pc.
+We could pull images from docker to run a database on a container.
+But it might be hard to setup and manage the container.
+In this case, docker compose is used to pull images, set the configuration, and run them as one network.</p>
+
+<p>Here’s the example of simple <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> that pulls postgres and adminer and run them locally.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: "3.7"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker_data/postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  adminer:
+    container_name: adminer
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    ports:
+      - 3645:8080
+</code></pre></div></div>
+
+<p>Save the file and run <code class="language-plaintext highlighter-rouge">docker-compose up -d</code>. Now you have your own database on a container.
+To stop the container, use <code class="language-plaintext highlighter-rouge">docker-compose down</code>.</p>
+
+<p>If you need to run other applications (such as RabbitMQ or Redis), you could just set the configuration and add the services
+only on <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>. It’s really convenient.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>From this post, we learned that docker could be used as an automation tool to speed up development and deployment and make it easier to manage.</p>
+
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/softengproject/2022/05/07/unit-tests-in-java-using-mock-and-stubs.html" data-toggle="tooltip" data-placement="top" title="Unit Tests in Java Using Mock and Stubs">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html" data-toggle="tooltip" data-placement="top" title="JDBC and JPA: What are the Differences">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:williamhori75@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/hori_75">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/hori75">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy;  2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '');
+</script>
+
+
+
+</body>
+
+</html>

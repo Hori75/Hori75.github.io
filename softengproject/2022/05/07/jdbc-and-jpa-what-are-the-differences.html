@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    JDBC and JPA: What are the Differences - Hori75&#39;s Blog
+    
+  </title>
+
+  <meta name="description" content="For starters, you could use JPA for storing data into database in springboot.">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html">
+  <link rel="alternate" type="application/rss+xml" title="Hori75&#39;s Blog" href="/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Hori75&#39;s Blog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/images/GitGuideorCheatsheetorWhatever-image.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>JDBC and JPA: What are the Differences</h1>
+            
+            <span class="meta">Posted by
+              <a href="#">hori75</a>
+              on May 07, 2022 &middot; <span class="reading-time" title="Estimated read time">
+  
+   4 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>For starters, you could use JPA for storing data into database in springboot.
+<!--more-->
+After sometime learning, you may found JDBC as a library to connect to database.
+And while trying it, you have to deal with SQL queries.
+You wonder how some developer prefer JDBC over JPA or the other way.
+This will tell you the differences between JDBC and JPA.</p>
+
+<h3 id="what-are-those">What are those</h3>
+
+<p>Java Persistence API (JPA) is an API high level standard for Object Relational Mapping.
+JPA already encapsulated SQL statements so you don’t encounter with SQL.
+But instead, you would encounter interfaces of the repository and must set decorators (such as <code class="language-plaintext highlighter-rouge">@Entity</code>, <code class="language-plaintext highlighter-rouge">@Id</code>, <code class="language-plaintext highlighter-rouge">@OneToOne</code>, etc).
+From those interfaces you only could get the data in form of object.</p>
+
+<p>Java Database Connectivity (JDBC) is a basic low level standard for interacting with database.
+JDBC provides functions to execute SQL query and return it in form of SQL statement.
+The SQL statement needs to be mapped into an object if you want to get data in form of object.
+This explains why you have to deal with SQL query when working with JDBC.</p>
+
+<h3 id="what-are-their-differences">What are their differences</h3>
+
+<p>JPA is easy to use for starters and those who don’t want to deal with SQL.
+This also means the application is guaranteed to be compatible with any databases.
+Why? Because there are some differences that could break one of databases or the other way.
+Aside from that, JPA also speed up development because there is no need to plan a query.
+Altough, adding decorators on the model could cause problems for other libraries.
+Also, migration could cause problem and needs knowledge on how the migration work out in JPA.</p>
+
+<p>JDBC is more simple when it comes to working with database. 
+Dealing with SQL means you have control over which data do you want to get and in what form.
+Migration could be handled seamlessly using Flyway.
+But it requires an experience in dealing with SQL queries.
+Also it needs to map sql result to the data object manually (you implement it yourself).
+This means many things needed to be setup and might take a while to develop.</p>
+
+<p>Using either of these still needs to deal with <strong>object relational impedance mismatch</strong>.
+This is a fancy way to tell that object (OOP) models and relational models don’t work together well.
+Relational models represent itself in tabular format (data of tables) and OOP represent itself as 
+interconnected graph of objects. The mismatch between 2 models could cause problems in either JPA or JDBC.
+In my opinion, this could be dealt with by avoiding connecting relation directly and using primitive data on model object.
+The main concept of Object relational Mapping itself is the solution to few mismatches.</p>
+
+<h3 id="when-to-use-jpa-or-jdbc">When to use JPA or JDBC</h3>
+
+<p>As stated in the beginning, JPA is good for starters who don’t want to deal with SQL query.
+JPA is also good for entreprise level application, altough it needs several adjustment to handle it’s weaknesses.
+JDBC is good for those who want to have control on what data is being queried and don’t want to deal with migration problem.
+JDBC in professional developers could create more lighter queries instead of utilizing Hibernate in JPA.
+JPA is good for quick development, JDBC is more of an investment to be paid off in the long term.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>JPA and JDBC has its own strong points and weak points. 
+Hopefully, this explained differences could help to choose between these two.</p>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/softengproject/2022/05/07/simple-development-and-deployment-using-docker-compose.html" data-toggle="tooltip" data-placement="top" title="Simple Development and Deployment Using Docker">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:williamhori75@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/hori_75">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/hori75">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy;  2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '');
+</script>
+
+
+
+</body>
+
+</html>

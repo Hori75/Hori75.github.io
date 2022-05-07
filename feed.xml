@@ -1,4 +1,228 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-03-21T11:21:51+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Refactoring a React Project</title><link href="/softengproject/2022/03/20/refactoring-react.html" rel="alternate" type="text/html" title="Refactoring a React Project" /><published>2022-03-20T22:00:00+07:00</published><updated>2022-03-20T22:00:00+07:00</updated><id>/softengproject/2022/03/20/refactoring-react</id><content type="html" xml:base="/softengproject/2022/03/20/refactoring-react.html"><![CDATA[<p>Initializing react project and working from there could be messy.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-05-07T19:53:48+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">JDBC and JPA: What are the Differences</title><link href="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html" rel="alternate" type="text/html" title="JDBC and JPA: What are the Differences" /><published>2022-05-07T16:10:00+07:00</published><updated>2022-05-07T16:10:00+07:00</updated><id>/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences</id><content type="html" xml:base="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html"><![CDATA[<p>For starters, you could use JPA for storing data into database in springboot.
+<!--more-->
+After sometime learning, you may found JDBC as a library to connect to database.
+And while trying it, you have to deal with SQL queries.
+You wonder how some developer prefer JDBC over JPA or the other way.
+This will tell you the differences between JDBC and JPA.</p>
+
+<h3 id="what-are-those">What are those</h3>
+
+<p>Java Persistence API (JPA) is an API high level standard for Object Relational Mapping.
+JPA already encapsulated SQL statements so you don’t encounter with SQL.
+But instead, you would encounter interfaces of the repository and must set decorators (such as <code class="language-plaintext highlighter-rouge">@Entity</code>, <code class="language-plaintext highlighter-rouge">@Id</code>, <code class="language-plaintext highlighter-rouge">@OneToOne</code>, etc).
+From those interfaces you only could get the data in form of object.</p>
+
+<p>Java Database Connectivity (JDBC) is a basic low level standard for interacting with database.
+JDBC provides functions to execute SQL query and return it in form of SQL statement.
+The SQL statement needs to be mapped into an object if you want to get data in form of object.
+This explains why you have to deal with SQL query when working with JDBC.</p>
+
+<h3 id="what-are-their-differences">What are their differences</h3>
+
+<p>JPA is easy to use for starters and those who don’t want to deal with SQL.
+This also means the application is guaranteed to be compatible with any databases.
+Why? Because there are some differences that could break one of databases or the other way.
+Aside from that, JPA also speed up development because there is no need to plan a query.
+Altough, adding decorators on the model could cause problems for other libraries.
+Also, migration could cause problem and needs knowledge on how the migration work out in JPA.</p>
+
+<p>JDBC is more simple when it comes to working with database. 
+Dealing with SQL means you have control over which data do you want to get and in what form.
+Migration could be handled seamlessly using Flyway.
+But it requires an experience in dealing with SQL queries.
+Also it needs to map sql result to the data object manually (you implement it yourself).
+This means many things needed to be setup and might take a while to develop.</p>
+
+<p>Using either of these still needs to deal with <strong>object relational impedance mismatch</strong>.
+This is a fancy way to tell that object (OOP) models and relational models don’t work together well.
+Relational models represent itself in tabular format (data of tables) and OOP represent itself as 
+interconnected graph of objects. The mismatch between 2 models could cause problems in either JPA or JDBC.
+In my opinion, this could be dealt with by avoiding connecting relation directly and using primitive data on model object.
+The main concept of Object relational Mapping itself is the solution to few mismatches.</p>
+
+<h3 id="when-to-use-jpa-or-jdbc">When to use JPA or JDBC</h3>
+
+<p>As stated in the beginning, JPA is good for starters who don’t want to deal with SQL query.
+JPA is also good for entreprise level application, altough it needs several adjustment to handle it’s weaknesses.
+JDBC is good for those who want to have control on what data is being queried and don’t want to deal with migration problem.
+JDBC in professional developers could create more lighter queries instead of utilizing Hibernate in JPA.
+JPA is good for quick development, JDBC is more of an investment to be paid off in the long term.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>JPA and JDBC has its own strong points and weak points. 
+Hopefully, this explained differences could help to choose between these two.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[For starters, you could use JPA for storing data into database in springboot.]]></summary></entry><entry><title type="html">Simple Development and Deployment Using Docker</title><link href="/softengproject/2022/05/07/simple-development-and-deployment-using-docker-compose.html" rel="alternate" type="text/html" title="Simple Development and Deployment Using Docker" /><published>2022-05-07T12:00:00+07:00</published><updated>2022-05-07T12:00:00+07:00</updated><id>/softengproject/2022/05/07/simple-development-and-deployment-using-docker-compose</id><content type="html" xml:base="/softengproject/2022/05/07/simple-development-and-deployment-using-docker-compose.html"><![CDATA[<p>As more and more services created, we need to manage the development and deployment in scalable way.
+<!--more-->
+But, we also need to make it portable. 
+This becomes a challenge that needs to be solve in a simple way (at least in current project)
+Docker is an easy way to store builds and deploy.</p>
+
+<h3 id="docker-usage">Docker Usage</h3>
+
+<p>Docker automates application build and setup and stores the result in form of <strong>image</strong>. 
+Docker will run commands based on the project <code class="language-plaintext highlighter-rouge">Dockerfile</code>.
+This <strong>image</strong> later could be run as container or store it in image registry to be pulled and run.</p>
+
+<p><strong>Container</strong> is a standard, lightweight, and secure software that contains anything it needs to operate.
+Due to that characteristic, we could use Docker to run our server basically anywhere as long docker could be used and the image is obtained.
+<strong>Container</strong> is isolated from the main system so we could have many of them running on an instance without interfering each other.</p>
+
+<h4 id="example-build-image-and-deploy-to-a-server">Example: build image and deploy to a server</h4>
+
+<p>In this example, we use java springboot so we could use grade to build image for us.
+So we build the image via <code class="language-plaintext highlighter-rouge">./gradlew bootBuildImage</code>, tag the image and push it into an image registry as latest.
+For example check this snippet about the job below (from <code class="language-plaintext highlighter-rouge">.gitlab-ci.yml</code>), you could run it manually to try
+(after filling the env variables of course).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PublishStaging:
+    stage: Publish
+    image: docker:latest
+    before_script:
+        - docker login -u _json_key --password-stdin https://$IMAGE_REGISTRY &lt; $ARTIFACT_REG_CRED
+        - apk add openjdk17
+    script:
+        - ./gradlew bootBuildImage
+        - docker tag sikepa:0.0.1-SNAPSHOT $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+        - docker push $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+    only:
+        variables:
+            - ($CI_COMMIT_BRANCH == "develop")
+</code></pre></div></div>
+
+<p>For other languages, it’s still easy. You just need to write setup and build command on <code class="language-plaintext highlighter-rouge">Dockerfile</code> and run it using <code class="language-plaintext highlighter-rouge">docker build</code>.</p>
+
+<p>After succesfully build and push the image, the application on server needs to be updated.
+So the application is stopped, updated, and ran again to apply the changes.
+Here’s the example of it.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DeployStaging:
+    stage: Deploy
+    image: docker:latest
+    before_script:
+        - chmod 400 $SSH_PRIVATE_KEY
+        - which ssh-agent || ( apk --update add openssh-client )
+        - eval $(ssh-agent -s)
+        - ssh-add $SSH_PRIVATE_KEY
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - cat $SSH_KNOWN_HOSTS &gt;&gt; ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - docker login -u _json_key --password-stdin https://$IMAGE_REGISTRY &lt; $ARTIFACT_REG_CRED
+    script:
+        - cat ~/.ssh/known_hosts
+        - docker stop sikepa-backend || true
+        - docker rm sikepa-backend || true
+        - docker pull $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+        - docker run -p 127.0.0.1:8080:80 --env-file $PROD_ENV --name sikepa-backend -d $IMAGE_REGISTRY/$IMAGE_TAG:stg-latest
+        - docker logs sikepa-backend
+    variables:
+        DOCKER_HOST: ssh://gitlab@$PROD_HOST
+    only:
+        variables:
+            - ($CI_COMMIT_BRANCH == "develop")
+</code></pre></div></div>
+
+<p>Note: this job runs ssh to the server manually. There might be a more optimal way to run on automation.</p>
+
+<p>This also could be scaled up so we could manage and run few services on just one instance without any security or interference issue.
+(except if you misconfigure them, obviously)</p>
+
+<h3 id="docker-compose-for-development">Docker Compose for Development</h3>
+
+<p>In local development, we might need to setup database or other softwares into our system. 
+This could cause some interference if we have more than one project in our pc.
+We could pull images from docker to run a database on a container.
+But it might be hard to setup and manage the container.
+In this case, docker compose is used to pull images, set the configuration, and run them as one network.</p>
+
+<p>Here’s the example of simple <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> that pulls postgres and adminer and run them locally.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: "3.7"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker_data/postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  adminer:
+    container_name: adminer
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    ports:
+      - 3645:8080
+</code></pre></div></div>
+
+<p>Save the file and run <code class="language-plaintext highlighter-rouge">docker-compose up -d</code>. Now you have your own database on a container.
+To stop the container, use <code class="language-plaintext highlighter-rouge">docker-compose down</code>.</p>
+
+<p>If you need to run other applications (such as RabbitMQ or Redis), you could just set the configuration and add the services
+only on <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>. It’s really convenient.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>From this post, we learned that docker could be used as an automation tool to speed up development and deployment and make it easier to manage.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[As more and more services created, we need to manage the development and deployment in scalable way.]]></summary></entry><entry><title type="html">Unit Tests in Java Using Mock and Stubs</title><link href="/softengproject/2022/05/07/unit-tests-in-java-using-mock-and-stubs.html" rel="alternate" type="text/html" title="Unit Tests in Java Using Mock and Stubs" /><published>2022-05-07T11:20:00+07:00</published><updated>2022-05-07T11:20:00+07:00</updated><id>/softengproject/2022/05/07/unit-tests-in-java-using-mock-and-stubs</id><content type="html" xml:base="/softengproject/2022/05/07/unit-tests-in-java-using-mock-and-stubs.html"><![CDATA[<p>On backend side, unit testing is important to ensure the implementation is working as intended.
+<!--more-->
+While learning java for web app development (using spring), we learn that testing is needed so the application worked.
+Unit testing might be complicated or intimidating for starters, this will explain how unit test in java works in general.</p>
+
+<h3 id="what-are-mock-and-stubs">What are Mock and Stubs</h3>
+
+<p><strong>Mock</strong> is an object of class that is going to be tested. 
+That way, the test runner can verify some things such as the functions the object invoked during test etc.
+In good practice, each class has its own test class where you create setup flow and unit tests.
+On this test class, an class is tested in form of a mock object.
+To fulfill it’s dependencies (class injection etc), you could inject to the mock using <code class="language-plaintext highlighter-rouge">@InjectMocks</code>.
+Remember that the injected class is a placeholder for the class and it won’t work unless we specify it to return something.
+This is where stubbing comes in.</p>
+
+<p><strong>Stubs</strong> are predetermined answers for the functions [of the injected object] called when the unit test is run.
+This will ensure that the tested class behaviour in invoking functions of other class.
+In java, you could use <code class="language-plaintext highlighter-rouge">when()</code> with many answers such as <code class="language-plaintext highlighter-rouge">.thenReturn()</code> or <code class="language-plaintext highlighter-rouge">.thenThrow()</code> to throw exception.</p>
+
+<p>On more general terms, there are other definitions we use in unit testing.</p>
+
+<ul>
+  <li><strong>Dummy</strong>, object that passed around only to fill parameter data.</li>
+  <li><strong>Fake object</strong>, the object that has real implementations but has shortcuts (either in implementation or usage) it wouldn’t be used in production.</li>
+  <li><strong>Spies</strong> to record some information based on how they were called. (but I won’t cover this in the post)</li>
+</ul>
+
+<p>Here’s the diagram that explain it in abstract way.</p>
+
+<p><img src="/images/test-framework.png" alt="test-framework" width="800" /></p>
+
+<h3 id="example-on-mvc">Example on MVC</h3>
+
+<p>For example, we take a look on a typical API controller that has its own service and Data Access Object (DAO or Repository).</p>
+
+<p><img src="/images/mvc.png" alt="mvc" width="800" /></p>
+
+<p>In this example, we will create test on Service Class. Each function used by the controller will be tested.
+Some of the functions might call a function from DAO. In that case, stubs are also used.
+Take note that you also need to create stub for null answers, otherwise it won’t be verified by the test runner.
+Here’s the diagram that describes this.</p>
+
+<p><img src="/images/mockservice.png" alt="mockservice" width="800" /></p>
+
+<p>Other example involves on creating unit tests for DAO. It might be needed to verify if data is saved properly to database.
+Usually, we use a library to connect between application to database. 
+It doesn’t make sense to mock it since we want to test something outside implementations.
+In that case, we could use fake object. For this example, we just connect the application to local database.
+We also need to setup the database only for unit tests and drop the data after testing.</p>
+
+<p><img src="/images/mockdao.png" alt="mockdao" width="800" /></p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Unit testing in java is not as hard as you might think. 
+You just need to remember that the purpose of these tools is to test the behaviour of the implementation.
+These tools need to be learned so we could use it in easy way.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[On backend side, unit testing is important to ensure the implementation is working as intended.]]></summary></entry><entry><title type="html">Refactoring a React Project</title><link href="/softengproject/2022/03/20/refactoring-react.html" rel="alternate" type="text/html" title="Refactoring a React Project" /><published>2022-03-20T22:00:00+07:00</published><updated>2022-03-20T22:00:00+07:00</updated><id>/softengproject/2022/03/20/refactoring-react</id><content type="html" xml:base="/softengproject/2022/03/20/refactoring-react.html"><![CDATA[<p>Initializing react project and working from there could be messy.
 <!--more-->
 Not only you have to setup from scratch, you have to build components itself.
 If not organized, the code could be turned into a mess due to javascript doesn’t care the project structure itself.</p>
