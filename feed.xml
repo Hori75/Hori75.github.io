@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-05-07T19:53:48+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">JDBC and JPA: What are the Differences</title><link href="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html" rel="alternate" type="text/html" title="JDBC and JPA: What are the Differences" /><published>2022-05-07T16:10:00+07:00</published><updated>2022-05-07T16:10:00+07:00</updated><id>/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences</id><content type="html" xml:base="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html"><![CDATA[<p>For starters, you could use JPA for storing data into database in springboot.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-05-08T18:59:09+07:00</updated><id>/feed.xml</id><title type="html">Hori75’s Blog</title><subtitle>Uncommon logs of Hori75, created out of necessities or experience of random events.</subtitle><entry><title type="html">Reading and Writing Xlxs using Sheetjs</title><link href="/softengproject/2022/05/08/reading-and-writing-xlsx-using-sheetjs.html" rel="alternate" type="text/html" title="Reading and Writing Xlxs using Sheetjs" /><published>2022-05-08T18:50:00+07:00</published><updated>2022-05-08T18:50:00+07:00</updated><id>/softengproject/2022/05/08/reading-and-writing-xlsx-using-sheetjs</id><content type="html" xml:base="/softengproject/2022/05/08/reading-and-writing-xlsx-using-sheetjs.html"><![CDATA[<p>Reading an excel file directly is not as easy as reading csv.
+<!--more-->
+XLSX file is a zipped XML-based file that represent a spreadsheet file as part of Microsoft Office Open XML specification.
+Spreadsheet file from Microsoft Excel was saved in form of XLS before being replace with this file format.
+The data is saved in compressed form so it couldn’t be read directly by simple parsing script.</p>
+
+<p>There are many parsing libraries for this file as it’s used widely and there is a need to convert the data to save in other form.
+In javascript, we can use SheetJS to parse and create XLSX file.
+SheetJS has the community version with adequate features, its Pro version has more features beyond the basic of reading and writing XLSX file.
+Here’s a guide on how to use it on React.</p>
+
+<h3 id="adding-xlsx-module-into-react-project">Adding Xlsx module into react project</h3>
+
+<p>To add module into react project, we just add them into <code class="language-plaintext highlighter-rouge">package.json</code> using the following command.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install xlsx
+pnpm install xlsx
+yarn add xlsx
+</code></pre></div></div>
+
+<p>To use the module, we declare import on the script like this</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import * as XLSX from "xlsx";
+</code></pre></div></div>
+
+<h3 id="reading-xlsx">Reading Xlsx</h3>
+
+<p>The example use case is reading Xlsx file after being selected from file input.
+Here’s the example function that handles the reading (in typescript).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  const fileInputHandler = (event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+    if (event.target.files == null) return;
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event: ProgressEvent&lt;FileReader&gt;) =&gt; {
+      if (event.target == null) return;
+      const bstr = event.target.result;
+      const wb = XLSX.read(bstr, { type: "binary" });
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      const data: string[][] = XLSX.utils.sheet_to_json(ws, { header: 1 });
+      console.log(data);
+    };
+    reader.readAsBinaryString(file);
+  }
+</code></pre></div></div>
+
+<p>This creates a new file reader that uses <code class="language-plaintext highlighter-rouge">XLSX.read</code> to read binary data it gets from file reader.
+After reading, it becomes a workbook object. A workbook stores one or many worksheets, we are getting the first worksheet.
+From there, we convert it into an array of arrays to be printed on console log.
+You could turn worksheet data into html table, csv, or json data in example above.</p>
+
+<h3 id="writing-xlsx">Writing Xlsx</h3>
+
+<p>To generate new workbook, we use the following code.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var workbook = XLSX.utils.book_new();
+</code></pre></div></div>
+
+<p>This generates an empty workbook with no worksheets. 
+Spreadsheet is enforced to have at least one worksheet, this is enforced on library if you would write the workbook
+(it throws error if you try to generate Xlsx from empty workbook).</p>
+
+<p>Previously we convert from worksheet into html, csv, or json.
+We could convert the other way using <code class="language-plaintext highlighter-rouge">XLSX.utils.*_to_sheet(data, opt)</code> (just switch the other way).</p>
+
+<p>To append a worksheet into workbook we use this code.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XLSX.utils.book_append_sheet(workbook, worksheet, sheet_name);
+</code></pre></div></div>
+
+<p>Take note that <code class="language-plaintext highlighter-rouge">sheet_name</code> should be unique between the worksheets in the workbook.
+You could replace the worksheet by assigning a worksheet like this.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>workbook.Sheets[sheet_name] = new_worksheet;
+</code></pre></div></div>
+
+<p>To write into Xlsx, we use <code class="language-plaintext highlighter-rouge">writeFile(wb, filename)</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XLSX.writeFile(wb, filename, write_opts)
+</code></pre></div></div>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Sheetjs is a library created to write and read xlsx files. It has many variety of commands to use
+and attempts to accomodate any common use cases.</p>
+
+<h3 id="references">References</h3>
+
+<p><a href="https://github.com/sheetjs/sheetjs">Sheetjs community version</a></p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[Reading an excel file directly is not as easy as reading csv.]]></summary></entry><entry><title type="html">JDBC and JPA: What are the Differences</title><link href="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html" rel="alternate" type="text/html" title="JDBC and JPA: What are the Differences" /><published>2022-05-07T16:10:00+07:00</published><updated>2022-05-07T16:10:00+07:00</updated><id>/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences</id><content type="html" xml:base="/softengproject/2022/05/07/jdbc-and-jpa-what-are-the-differences.html"><![CDATA[<p>For starters, you could use JPA for storing data into database in springboot.
 <!--more-->
 After sometime learning, you may found JDBC as a library to connect to database.
 And while trying it, you have to deal with SQL queries.
@@ -760,156 +850,4 @@ Code coverage shouldn’t be the main requirement for code quality, we only need
 <h3 id="reference">Reference</h3>
 
 <p>You could check out Kent Beck’s book on <a href="https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530">Test Driven Development: By Example</a>
-if you would like to learn more on Test Driven Development.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[(SPOILER ALERT) It’s not 100% coverage.]]></summary></entry><entry><title type="html">Git Guide or Cheatsheet or Whatever</title><link href="/softengproject/2022/02/27/git-guide-or-cheatsheet-or-whatever.html" rel="alternate" type="text/html" title="Git Guide or Cheatsheet or Whatever" /><published>2022-02-27T22:45:00+07:00</published><updated>2022-02-27T22:45:00+07:00</updated><id>/softengproject/2022/02/27/git-guide-or-cheatsheet-or-whatever</id><content type="html" xml:base="/softengproject/2022/02/27/git-guide-or-cheatsheet-or-whatever.html"><![CDATA[<p>Git is a common version control used on Software Engineering projects.
-<!--more-->
-You could see that every projects maintained online used git in majority.
-Learning git is a necessity if you would like to work in a codebase maintained by a group or company.
-This post currates a list of common knowledge and guide I found and followed.</p>
-
-<h3 id="overview-of-git">Overview of Git</h3>
-
-<p>A codebase is stored in a <strong>repository</strong> either local or on a remote server.
-In the repository, there is a <strong>“main” branch</strong> that represents the current progress or release.
-The repositories often have many branches of others.
-You save your progress by creating a <strong>commit</strong> consists of your changes into a branch.
-You could <strong>branch</strong> from other branch and <strong>merge</strong> a branch into other branch.</p>
-
-<p>With git, you could work on a task alongside with others’ work in the same codebase.
-This is important as you need to store your own work and merge with the rest of others’ work in a good way.</p>
-
-<h3 id="git-remote-server">Git Remote Server</h3>
-
-<p>There are sites that host remote repositories such as <a href="https://github.com">github</a>, <a href="https://gitlab.com">gitlab</a>, etc.
-These sites have utility features such as continous integration/deployment (CI/CD) and merge request that can be reviewed by others.</p>
-
-<h3 id="commands-of-git">Commands of Git</h3>
-
-<p>This is a list of git commands I have used.</p>
-
-<h4 id="initializing-a-repository">Initializing a Repository</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git init</code></pre></figure>
-
-<p>This command is used to initialize a local repository. The <code class="language-plaintext highlighter-rouge">.git</code> folder is initialized by this command.</p>
-
-<h4 id="cloning-a-remote-repository">Cloning a Remote Repository</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone &lt;remote_url&gt; &lt;target_dir&gt;</code></pre></figure>
-
-<p>This clones a remote repository into a folder. An origin remote is set to able to pull and push to the remote repository.</p>
-
-<h4 id="setting-remote-repository">Setting Remote Repository</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git remote add &lt;remote_name&gt; &lt;remote_url&gt;
-git remote set-url &lt;remote_name&gt; &lt;remote_url&gt;
-git remote remove &lt;remote_name&gt;</code></pre></figure>
-
-<p>This command is used to manage remote repositories it relates to.</p>
-
-<h4 id="stage-changes">Stage Changes</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git add &lt;files&gt;</code></pre></figure>
-
-<p>This command stages files to be commit.</p>
-
-<h4 id="commit-changes">Commit Changes</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git commit
-git commit <span class="nt">-m</span> &lt;commit_message&gt;
-git commit <span class="nt">-a</span></code></pre></figure>
-
-<p>This commits changes staged using <code class="language-plaintext highlighter-rouge">git add</code>. You also could modify previous commit using <code class="language-plaintext highlighter-rouge">-a</code>.</p>
-
-<h4 id="pull-changes-from-remote-repository">Pull Changes from Remote Repository</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git pull
-git pull &lt;remote&gt; &lt;branch&gt;</code></pre></figure>
-
-<p>This command pull commits from remote repository.
-If executed on different branch, it will create a merge commit to apply pulled commits.</p>
-
-<h4 id="push-changes-to-remote-repository">Push Changes to Remote Repository</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git push &lt;remote&gt; &lt;branch&gt;</code></pre></figure>
-
-<p>This command pushes commits created locally to the remote repository. This creates new branch if it doesn’t exist.
-You could use <code class="language-plaintext highlighter-rouge">--force</code> to rewrite commit history with your local commit history.</p>
-
-<h4 id="status">Status</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git status</code></pre></figure>
-
-<p>This command outputs an overview of your local repository. This includes current branch and uncommited changes if any.</p>
-
-<h4 id="branch">Branch</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git branch &lt;new_branch_name&gt;</code></pre></figure>
-
-<p>This command creates a new branch for current branch. Keep in mind that you need to select the new branch using checkout.</p>
-
-<h4 id="checkout">Checkout</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout &lt;branch_name&gt;
-git checkout <span class="nt">-b</span> &lt;new_branch_name&gt;</code></pre></figure>
-
-<p>This command changes the current branch to specified branch.
-You could use <code class="language-plaintext highlighter-rouge">-b</code> to create new branch and checkout to the new branch.</p>
-
-<h4 id="log">Log</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git log
-git reflog</code></pre></figure>
-
-<p><code class="language-plaintext highlighter-rouge">git log</code> is used to see the history of commits on current branch. 
-You could see the code on that commit version using <code class="language-plaintext highlighter-rouge">git checkout &lt;commit_sha&gt;</code>.
-<code class="language-plaintext highlighter-rouge">git reflog</code> is used to see the history of git command you used.</p>
-
-<h4 id="stash">Stash</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git stash</code></pre></figure>
-
-<p>This command stashes your uncomitted changes. Useful when you need to pull or change branch.
-To unstash, use <code class="language-plaintext highlighter-rouge">git stash apply</code>.</p>
-
-<h4 id="rebase">Rebase</h4>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git rebase &lt;branch_source&gt;</code></pre></figure>
-
-<p>This adds commits added from source branch before repeating your commits on current branch.</p>
-
-<h3 id="tips-and-tricks">Tips and Tricks</h3>
-
-<p>These are tips and tricks that could be used for convenience.</p>
-
-<h4 id="updating-branch-without-merge-commit">Updating Branch without Merge Commit</h4>
-
-<p>Before merging your work into the main remote branch, you often need to update your branch to the latest commit done in main branch.
-You could just <code class="language-plaintext highlighter-rouge">git pull origin master</code> to update your branch, but this will create a merge commit which is often 
-cumbersome. You could instead utilize <code class="language-plaintext highlighter-rouge">git rebase</code> for this matter. 
-This is command I run when I need to update my branch before merge.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout master
-git pull origin master
-git checkout &lt;branch_name&gt;
-git rebase master
-git push <span class="nt">--force</span> origin &lt;branch_name&gt;</code></pre></figure>
-
-<p><code class="language-plaintext highlighter-rouge">--force</code> is required here because the commit you create on the branch is repeated and hence creating new SHA for the commit.
-This will cause history between local and remote become different and need to be rewritten.</p>
-
-<h4 id="reverting-recent-unpushed-commit">Reverting Recent Unpushed Commit</h4>
-
-<p>When you accidentally commit your changes, you have two choices: Reset to remote state which wastes your current work, or use this command</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git reset HEAD~1 <span class="nt">--soft</span></code></pre></figure>
-
-<p>This will undo the local commit, assuming your last action is committing.</p>
-
-<h4 id="use-gitkeep-for-empty-directories">Use <code class="language-plaintext highlighter-rouge">.gitkeep</code> for Empty Directories</h4>
-
-<p>You couldn’t commit empty directories. But you could place <code class="language-plaintext highlighter-rouge">.gitkeep</code> to keep the empty directory.</p>
-
-<h3 id="conclusion">Conclusion</h3>
-
-<p>Git is a nice version control that has wide features and commands that you might not use.
-But once you learn basic of committing, branching, and merging, you will get used to these commands and tricks.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[Git is a common version control used on Software Engineering projects.]]></summary></entry></feed>
+if you would like to learn more on Test Driven Development.</p>]]></content><author><name>hori75</name></author><category term="SoftEngProject" /><summary type="html"><![CDATA[(SPOILER ALERT) It’s not 100% coverage.]]></summary></entry></feed>
